@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<style>
+body {
+  -webkit-perspective: 1600;
+}
+
+.Card {
+  position: relative;
+  font-family: Nimbus Roman No9 L;
+  width: 50px;
+  height: 65px;
+  display: inline-block;
+  margin: 5px;
+  -webkit-touch-callout: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  cursor: default;
+
+  -webkit-transition: -webkit-transform 1s;
+  -moz-transition: -moz-transform 1s;
+  -o-transition: -o-transform 1s;
+  transition: transform 1s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.Card.CardFlipped {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.CardFront, .CardBack {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 6px;
+  border: 1px solid #000;
+}
+
+.CardFront {
+  background: #fff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.CardBack {
+  background: url(card-pattern.gif);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.CardHeart, .CardDiamond {
+  color: #f00;
+}
+
+.CardSymbolContainer {
+  border: 1px dotted #aaa;
+  border-radius: 2px;
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  left: 35%;
+  right: 5%;
+}
+
+.CardSymbol {
+  font-size: 14px;
+  position: absolute;
+  margin-top: -0.5em;
+}
+
+.CardLetter {
+  display: inline-block;
+  text-align: center;
+  font-size: 18px;
+  position: absolute;
+  left: 4%;
+  top: 5%;
+  line-height: 15px;
+  width: 13px;
+}
+
+.CardLetter10 {
+  font-size: 13px;
+}
+
+</style>
+</head>
+<body>
+<script src="cardlib.js"></script>
+<script>
+
+var cards = [];
+
+for (var i = 0; i < 52; i++) {
+  card = new Card(i % 13, parseInt(i / 13));
+  card.create();
+  card.flip();
+  cards.push(card);
+
+  if (i % 13 == 0 && i != 0) {
+    document.body.appendChild(document.createElement('BR'));
+  }
+  document.body.appendChild(card.element);
+}
+
+var i = 0;
+setInterval(function () {
+  cards[i % 52].flip();
+  i++;
+}, 250);
+
+</script>
+</body>
+</html>
+
+
